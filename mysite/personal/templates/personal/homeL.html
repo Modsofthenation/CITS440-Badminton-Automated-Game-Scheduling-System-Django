@@ -1,0 +1,78 @@
+
+<!-- includes directory is used for small snippets of html code -->
+<!-- 0 = team, 1= game, 2=Upcomming match/already player-->
+
+{% extends "personal/header.html" %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<center>
+	<h3> Welcome back {{user.first_name}} ! </h3>
+</center>
+{% endif %}
+
+
+
+<center>
+	<h2> BAGSS Leaderboard </h2>
+
+<table id="leaderboardTable">
+	<tr>
+	    <th>Rank</th>
+	    <th>Team</th>
+	    <th>Players</th>
+	    <th>Total wins</th>
+	</tr>
+
+ 	{% for team in content.0 %}
+	<tr>  
+		<td>{{ team.leaderboard_position }}</td>
+		<td>Team {{ team.id }}</td>
+		<td>{{ team.player1.first_name }} and {{ team.player2.first_name }}</td>
+		<td>{{ team.total_wins }}</td
+	</tr>
+	{% endfor %}
+
+</table>
+
+
+<!-- {% if user.is_authenticated %}
+<br>
+<h2> Your Latest Match Details </h2>
+
+<table id="leaderboardTable">
+	<tr>
+	    <th>Date</th>
+	    <th>Team1</th>
+	    <th>Team2</th>
+	    <th>Team that won</th>
+	    <th>Court</th>
+	</tr>
+
+ 	{% for game in content.1 %}
+	 	{% if game.team1.player1.id == user.id or game.team1.player2.id == user.id or game.team2.player1.id == user.id or game.team2.player2.id == user.id %}
+	 		{% if forloop.counter == 1 %}
+				<tr>
+				    <td>{{ game.date }}</td>
+				    <td>Team {{ game.team1.id }}</td>
+				    <td>Team {{ game.team2.id }}</td>
+
+				    {% if game.winning_team_id == null %}
+				    	<td> Not been played yet </td>
+				    {% else %}
+				    	<td>Team {{ game.winning_team.id }}</td>
+				    {% endif %}
+				    
+				    <td>{{ game.court.name }}</td>
+				</tr>
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+</table>
+
+{% endif %} -->
+
+</center>
+
+{% endblock %}

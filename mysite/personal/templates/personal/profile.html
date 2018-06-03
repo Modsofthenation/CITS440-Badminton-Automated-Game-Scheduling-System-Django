@@ -1,0 +1,41 @@
+
+<!-- includes directory is used for small snippets of html code -->
+
+{% extends "personal/header.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+	<center>
+		<h1> Profile Page </h1>
+		<h4> Player Details </h4>
+		<table id="leaderboardTable">
+			<tr>
+		    	<th>Username: {{user.username}}</th>
+			</tr>
+		  	<tr>
+		    	<th>First Name: {{user.first_name}}</th>
+		  	</tr>
+		  	<tr>
+		    	<th>Last Name: {{user.last_name}}</th>
+		  	</tr>
+		  	<tr>
+		    	<th>Email: {{user.email}}</th>
+		  	</tr>
+		  	<tr>
+		    	<th>In team: {{user.player.team.id}}</th>
+		  	</tr>
+		  	<tr>
+		    	<th>Last Login Attempt: {{user.last_login}}</th>
+		  	</tr>
+		</table>
+		<br><br><br>
+	</center>
+{% else %}
+	<center>
+		<h1> Please login in to view this page! <h1>
+	</center>	
+{% endif %}
+
+
+
+{% endblock %}

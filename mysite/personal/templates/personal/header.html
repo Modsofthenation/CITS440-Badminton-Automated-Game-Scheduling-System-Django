@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>BAGSS</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'personal/css/bootstrap.min.css' %}" type = "text/css"/>
+	<link rel="stylesheet" href="{% static 'personal/css/otherStyles.css' %}" type = "text/css"/>
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+
+	<div class="navigationBarTop">
+
+		<div class="BadmintonTitle">
+			<center>
+				<h1> Badminton Automated Game Scheduling System (BAGSS) </h1>
+			</center>
+		</div>
+	
+		{% if user.is_authenticated %}
+			<a href="/">Home</a>
+			<a href="/profile">Profile</a>
+			<a href="/manageGames">Manage Games</a>
+			<a href="/accountSettings">Account Settings</a>
+			<a href="/logout">Logout</a>
+		{% else %}
+			<a href="/">Home</a>
+			<a href="/login">Login</a>
+		{% endif %}
+	</div>
+	<br><br><br><br>
+</head>
+
+<body class="body" style="background-color:#f6f6f6">
+	
+		  
+	<div class='container-fluid'>
+		<br><br><br><br>
+		{% block content %}
+		{% endblock %}	
+	</div>
+	
+
+	<!--	<div class="footerContainer" style='margin-left:15px'>
+			<p>Prototype demo for Badminton Automated Game Scheduling System (BAGSS) 
+			<br>
+			Django/Python Implementation
+			<br>
+			Created by Damon van der Linde
+			</p>
+		</div>
+
+	-->
+	
+</body>
+
+</html>

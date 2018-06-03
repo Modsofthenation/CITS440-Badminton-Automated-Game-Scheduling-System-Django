@@ -1,0 +1,47 @@
+
+<!-- includes directory is used for small snippets of html code -->
+
+{% extends "personal/header.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+	<center>
+		<h1> Account Settings </h1>
+		<form>
+			<h3> Change Details </h3>
+			Email:<br>
+			<input type="text" name="useremail" value = {{user.email}}>
+			<br>
+			<br>
+			<h3> Password Change </h3>
+			Please enter in your current password:<br>
+			<input type="text" name="curpassword">
+			<br>
+
+			Please enter in a new password:<br>
+			<input type="text" name="newpassword">
+			<br>
+			<button type="button">Change Password</button>
+		</form>
+
+		<form>
+			<br>
+			<h3> Account Status Settings </h3>
+			<br>
+			<button type="button">Deactivate Account</button>
+			<br>
+			<br>
+			<button type="button">Delete Account</button>
+		</form>
+
+		<br><br><br>
+	</center>
+{% else %}
+	<center>
+		<h1> Please login in to view this page! <h1>
+	</center>	
+{% endif %}
+
+
+
+{% endblock %}

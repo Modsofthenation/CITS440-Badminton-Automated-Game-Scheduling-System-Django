@@ -1,0 +1,36 @@
+
+<!-- includes directory is used for small snippets of html code -->
+
+{% extends "personal/header.html" %}
+{% block content %}
+
+<center>
+	<h2> BAGSS Leaderboard </h2>
+	<h4> Last Updated: 1:23pm, 26th May 2018 </h4>
+	<table id="leaderboardTable">
+	  <tr>
+	    <th>Rank</th>
+	    <th>Team</th>
+	    <th>Total wins</th>
+	  </tr>
+	  <tr>
+	    <td>1</td>
+	    <td>Team1</td>
+	    <td>7</td>
+	  </tr>
+	  <tr>
+	    <td>2</td>
+	    <td>Team3</td>
+	    <td>5</td>
+	  </tr>
+	  <tr>
+	    <td>3</td>
+	    <td>Team3</td>
+	    <td>4</td>
+	  </tr>
+	</table>
+	<br><br><br>
+</center>
+
+{% include "personal/includes/htmlsnippet.html" %}
+{% endblock %}

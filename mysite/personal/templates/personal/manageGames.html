@@ -1,0 +1,186 @@
+
+<!-- includes directory is used for small snippets of html code -->
+<!-- 0 = team, 1= game, 2=Upcomming match/already player-->
+
+{% extends "personal/header.html" %}
+{% block content %}
+
+
+
+{% if user.is_authenticated %}
+
+<center>
+<h1> Manage Games </h1>
+<br>
+<h2> Match History </h2>
+
+
+<!-- Retrieve match history for current player -->
+<table id="leaderboardTable">
+	<tr>
+	    <th>Week</th>
+	    <th>Date</th>
+	    <th>Opponent</th>
+	    <th>Win or Loss</th>
+	</tr>
+
+ 	{% for game in content.0 %}
+				<tr>
+					<td>{{ game.week }}</td>
+					<td>{{ game.date }}</td>
+					{% if user.player.team.id == game.team1.id %}
+						<td>Team {{ game.team2.id }}</td>
+					{% else %}
+						<td>Team {{ game.team1.id }}</td>
+					{% endif %}
+
+
+					{% if game.winning_team.id == user.player.team.id %}
+					   	<td> Win </td>
+					{% else %}
+					    <td> Loss </td>
+					{% endif %}
+				</tr>
+	{% endfor %}
+
+
+</table>
+
+<br>
+
+<!-- Retrieve latest match details -->
+<h2> Latest match </h2>
+
+{% if content.1 == 2 %}
+	<table id="leaderboardTable">
+	<tr>
+	    <th>Week</th>
+	    <th>Date</th>
+	    <th>Court</th>
+	    <th>Opposing Team</th>
+	</tr>
+		{% for game in content.2 %}
+			{% if forloop.counter == 1 %}
+			<tr>
+				<td>{{ game.week }}</td>
+				<td>{{ game.date }}</td>
+				<td>{{ game.court.name }}</td>	
+
+				{% if user.player.team.id == game.team1.id %}
+					<td>Team {{ game.team2.id }}</td>
+				{% else %}
+					<td>Team {{ game.team1.id }}</td>
+				{% endif %}
+			</tr>
+			{% endif %}
+		{% endfor %}
+	</table>
+
+	<br>
+	<button type="button">Win</button>
+	<button type="button">Loss</button>
+	<br>
+
+{% elif content.1 == 1 %}
+	{% if content.3 == False %}
+		<table id="leaderboardTable">
+		<tr>
+		    <th>Week</th>
+		    <th>Date</th>
+		    <th>Court</th>
+		    <th>Opposing Team</th>
+		</tr>
+				<tr>
+					<td>{{ content.2.0.week }}</td>
+					<td>{{ content.2.0.date }}</td>
+					<td>{{ content.2.0.court.name }}</td>
+					{% if user.player.team.id == content.2.0.team1.id %}
+						<td>Team {{ content.2.0.team2.id }}</td>
+					{% else %}
+						<td>Team {{ content.2.0.team1.id }}</td>
+					{% endif %}
+				</tr>
+		</table>
+	<br>
+	<button type="button">Win</button>
+	<button type="button">Loss</button>
+	<br>
+	{% else %}
+		<p> Details for the last played match as already been logged </p>
+	{% endif %}
+{% endif %}
+
+
+<!-- Retrieve upcoming match details -->
+<br>
+<h2> Upcoming match </h2>
+{% if content.1 == 2 %}
+	<table id="leaderboardTable">
+		<tr>
+		    <th>Week</th>
+		    <th>Date</th>
+		    <th>Court</th>
+		    <th>Opposing Team</th>
+		</tr>
+				   
+		<tr>
+			{% for game in content.2 %}
+				{% if forloop.counter == 2 %}
+					<td>{{ game.week }}</td>
+					<td>{{ game.date }}</td>
+					<td>{{ game.court.name }}</td>
+
+					{% if user.player.team.id == game.team1.id %}
+					    <td>Team {{ game.team2.id }}</td>
+					{% else %}
+					    <td>Team {{ game.team1.id }}</td>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		</tr>
+	</table>
+	<br>
+	<button type="button">Forfeit</button>
+	<button type="button">Reschedule</button>
+	<br>
+{% elif content.1 == 1 %}
+	{% if content.3 == True %}
+		<table id="leaderboardTable">
+		<tr>
+		    <th>Week</th>
+		    <th>Date</th>
+		    <th>Court</th>
+		    <th>Opposing Team</th>
+		</tr>
+				<tr>
+					<td>{{ content.2.0.week }}</td>
+					<td>{{ content.2.0.date }}</td>
+					<td>{{ content.2.0.court.name }}</td>
+					{% if user.player.team.id == content.2.0.team1.id %}
+						<td>Team {{ content.2.0.team2.id }}</td>
+					{% else %}
+						<td>Team {{ content.2.0.team1.id }}</td>
+					{% endif %}
+				</tr>
+		</table>
+		<br>
+		<button type="button">Forfeit</button>
+		<button type="button">Reschedule</button>
+		<br>
+	{% else %}
+		<p> Details for the upcoming match is yet to be determined </p>
+	{% endif %}
+{% endif %}
+
+</center>
+{% else %}
+<br><br><br>
+<center> <h3> Please login to your account to view the manage games page </h3> </center>
+
+{% endif %}
+
+
+
+
+
+{% endblock %}
