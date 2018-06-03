@@ -1,4 +1,5 @@
-# CITS4401 - Badminton-Automated-Game-Scheduling-System 
+![picture alt](http://static.weboffice.uwa.edu.au/visualid/core-rebrand/img/uwacrest/uwacrest-blue.svg)
+# CITS4401 - Badminton Automated Game Scheduling System (BAGSS)
 Django/Python Limited Functionality Prototype
 
 ## Basic description
