@@ -7,7 +7,7 @@ During Semester 1 of 2018 we were required to complete a Requirement Analysis Do
 Given my recent interest in web development aspects, I chose Django/Python as this presented the perfect opportunity to familiarise myself with this frameworks. 
 I plan on extending the functionality of the prototype after my exams have been complete to progress further with my understanding of Django framework. 
 
-Current things that are planned:
+**Current things that are planned:**
 * Showcasing and editing of player's availability
 * Generating common sets of availability between players
 * Generating common sets of availability between teams and the courts
