@@ -29,6 +29,11 @@
 		  	</tr>
 		</table>
 		<br><br><br>
+
+		<h4> My Availabilities </h4>
+		{% for avail in content %}
+			<p> {{ avail }} </p>
+		{% endfor %}
 	</center>
 {% else %}
 	<center>

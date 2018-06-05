@@ -52,7 +52,7 @@ class Sql:
         game_np2 = models.Game.objects.filter(Q(has_been_played = False), Q(team1 = team))
         game_unsorted = game_np1 | game_np2
         game_sorted = sorted(game_unsorted, key=operator.attrgetter('week'))
-        Sql.get_common_availbility_for_players(4)
+        Sql.get_common_availbility_for_players(4,5)
         return game_sorted
 
     def get_latest_game(request):
@@ -60,17 +60,42 @@ class Sql:
         print(game)
         return game
 
-    def get_common_availbility_for_players(p1_id):
+    """
+       Retrieve availibilities for current user
+    """
+    def get_user_availbility(request):
+        player_instance = User.objects.get(pk = request.user.id)
+        availability = models.Availability.objects.filter(player = player_instance).values('availability')
+
+        availList = []
+        for avail in availability:
+            availList.append(avail["availability"].date())
+
+        return availList
+
+    """
+       Retrieve the availibilties for player id matching p1_id 
+       Retrieve the avalibilities for player id matching p2_ide
+
+       Find and return a common set of availbilities amongst players
+       Based on assumption where a player is a availble for the whole day
+    """
+    def get_common_availbility_for_players(p1_id, p2_id):
         player1_instance = User.objects.get(pk = p1_id)
-        #player2_instance = User.objects.get(pk = p2_id)
+        player2_instance = User.objects.get(pk = p2_id)
 
         availabilityP1 = models.Availability.objects.filter(player = player1_instance).values('availability')
+        availabilityP2 = models.Availability.objects.filter(player = player2_instance).values('availability')
 
-        for value in availabilityP1:
-            print(value)
+        common_avail = []
+        for availP1 in availabilityP1:
+            for availP2 in availabilityP2:
+                dateP1 = availP1["availability"].date()
+                dateP2 = availP2["availability"].date()
+                if dateP1 == dateP2:
+                    common_avail.append(dateP1)
 
-        #print(availabilityP1)
-        return None
+        return common_avail
 
     def schedule_game():
         return None

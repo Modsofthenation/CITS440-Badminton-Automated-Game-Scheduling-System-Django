@@ -8,7 +8,8 @@ def index(request):
 	return render(request, 'personal/homeL.html', {'content': [team, game]})
 
 def profile(request):
-	return render(request, 'personal/profile.html')
+	player_availability = db.Sql.get_user_availbility(request)
+	return render(request, 'personal/profile.html', {'content': player_availability})
 
 def manageGames(request):
 	games_played = db.Sql.get_games_where_player_involved_have_been_played(request)
