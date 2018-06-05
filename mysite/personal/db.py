@@ -97,6 +97,24 @@ class Sql:
 
         return common_avail
 
+    """
+       Get common availbilities between teams given there ids
+    """
+    def get_common_availbility_for_teams(t1_id, t2_id):
+        team1_object = models.Team.objects.get(id = t1_id)
+        team2_object = models.Team.objects.get(id = t2_id) 
+
+        team1_common_avail = get_common_availbility_for_players(team1_object.player1.id, team1_object.player2.id)
+        team2_common_avail = get_common_availbility_for_players(team2_object.player1.id, team2_object.player2.id)
+
+        game_common_avail = []
+        for availT1 in team1_common_avail:
+            for availT2 in team2_common_avail:
+                if availT1 == availT2:
+                    game_common_avail.append(availT1)
+
+        return game_common_avail
+
     def schedule_game():
         return None
 
