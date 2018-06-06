@@ -13,6 +13,10 @@ class Sql:
     	team = models.Team.objects.all().order_by("leaderboard_position")
     	return team
 
+    def get_teamTable_decent():
+        team = models.Team.objects.all().order_by("-leaderboard_position")
+        return team
+
     def get_gameTable(request):
     	user_id = request.user.id
     	user_user = request.user
@@ -66,7 +70,6 @@ class Sql:
     def get_user_availbility(request):
         player_instance = User.objects.get(pk = request.user.id)
         availability = models.Availability.objects.filter(player = player_instance).values('availability')
-
         availList = []
         for avail in availability:
             availList.append(avail["availability"].date())
@@ -104,8 +107,8 @@ class Sql:
         team1_object = models.Team.objects.get(id = t1_id)
         team2_object = models.Team.objects.get(id = t2_id) 
 
-        team1_common_avail = get_common_availbility_for_players(team1_object.player1.id, team1_object.player2.id)
-        team2_common_avail = get_common_availbility_for_players(team2_object.player1.id, team2_object.player2.id)
+        team1_common_avail = Sql.get_common_availbility_for_players(team1_object.player1.id, team1_object.player2.id)
+        team2_common_avail = Sql.get_common_availbility_for_players(team2_object.player1.id, team2_object.player2.id)
 
         game_common_avail = []
         for availT1 in team1_common_avail:
@@ -115,8 +118,44 @@ class Sql:
 
         return game_common_avail
 
-    def schedule_game():
+    def schedule(week):
+        if week == False:
+            print("Week is odd - Play team above - Top Team doesn't Play")
+        else:
+            print("Week is odd - Play team below - Bottom Team doesn't Play")
+
+        teams = Sql.get_teamTable_decent()
+
+        numberTeams = 0
+        team1_id = -1
+        team2_id = -1
+        for index, team in enumerate(teams):
+            if week == False:
+                if index == 0:
+                    None
+                else:
+                    if numberTeams == 0:
+                        team1_id = team.id
+                    elif numberTeams == 1:
+                        team2_id = team.id
+                    numberTeams = numberTeams + 1
+                    if numberTeams == 2:
+                        commonSet = Sql.get_common_availbility_for_teams(team1_id, team2_id)
+                        print("Common set",commonSet)
+                        numberTeams = 0
+                    print(index, team.id, team.total_wins, team.leaderboard_position)     
+            else:
+                if index == len(teams)-1:
+                    None
+                else:
+                    print(index, team.id)
+
+            
+            
+
+
         return None
+
 
 
 class Other:

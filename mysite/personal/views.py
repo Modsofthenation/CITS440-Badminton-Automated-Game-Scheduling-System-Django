@@ -9,6 +9,7 @@ def index(request):
 
 def profile(request):
 	player_availability = db.Sql.get_user_availbility(request)
+	db.Sql.schedule(False)
 	return render(request, 'personal/profile.html', {'content': player_availability})
 
 def manageGames(request):
